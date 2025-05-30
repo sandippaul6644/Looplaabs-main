@@ -145,22 +145,29 @@ const Navbar: React.FC = () => {
             <a href="#home" className="flex items-center space-x-4">
               <img src="/IMG-20250426-WA0016.jpg" alt="LoopLabs Logo" className="h-12 w-12" />
               <div className="flex items-center space-x-2" style={{ perspective: '1000px' }}>
-                <motion.span
-                  ref={textRef}
-                  className="text-5xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-accent-500 cursor-pointer"
-                  variants={looplabsVariants}
-                  initial="initial"
-                  animate={looplabsControls}
-                  onMouseMove={handleMouseMove}
-                  onMouseLeave={resetRotation}
-                  style={{
-                    transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
-                    transformStyle: 'preserve-3d',
-                    transition: 'transform 0.2s ease-out',
-                  }}
-                >
-                  LOOPLABS
-                </motion.span>
+               <motion.span
+  ref={textRef}
+  className="text-5xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-accent-500 cursor-pointer"
+  variants={looplabsVariants}
+  initial="initial"
+  animate={looplabsControls}
+  onMouseEnter={async () => {
+    await looplabsControls.start('animateToCenter');
+    await looplabsControls.start('returnToNav');
+
+    await goldPartnerControls.start('rotateAnim');
+    await goldPartnerControls.start('returnToNormal');
+  }}
+  onMouseMove={handleMouseMove}
+  onMouseLeave={resetRotation}
+  style={{
+    transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+    transformStyle: 'preserve-3d',
+    transition: 'transform 0.2s ease-out',
+  }}
+>
+  LOOPLABS
+</motion.span>
                 <span className="text-5xl font-bold text-gold-500">∞</span>
                 <motion.a
                   href="https://www.hungrytop.com/"

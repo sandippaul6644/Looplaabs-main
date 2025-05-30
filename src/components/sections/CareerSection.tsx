@@ -7,19 +7,19 @@ const openPositions = [
   {
     title: 'Senior Frontend Developer',
     type: 'Full-time',
-    location: 'Remote / San Francisco, CA',
+    location: 'KOLKATA',
     link: '#apply'
   },
   {
     title: 'UX/UI Designer',
     type: 'Full-time',
-    location: 'San Francisco, CA',
+    location: 'KOLKATA',
     link: '#apply'
   },
   {
     title: 'Digital Marketing Specialist',
     type: 'Full-time',
-    location: 'Remote / New York, NY',
+    location: 'KOLKATA',
     link: '#apply'
   },
   {

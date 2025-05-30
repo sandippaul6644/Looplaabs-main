@@ -71,13 +71,17 @@ const HeroSection: React.FC = () => {
             {/* This is a placeholder for a 3D model or animation */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="relative w-full h-full">
-                <img 
-                  src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                  alt="Technology concept" 
-                  className="w-full h-full object-cover rounded-2xl shadow-xl"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-500/30 to-accent-500/30 rounded-2xl"></div>
-              </div>
+  <video
+    src="/homevideo.mp4"
+    autoPlay
+    loop
+    muted
+    playsInline
+    className="w-full h-full object-cover rounded-2xl shadow-xl"
+  />
+  <div className="absolute inset-0 bg-gradient-to-r from-primary-500/30 to-accent-500/30 rounded-2xl"></div>
+</div>
+
             </div>
           </motion.div>
         </div>
