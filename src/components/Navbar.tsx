@@ -1,42 +1,128 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 
 const navLinks = [
   { title: 'Home', href: '#home' },
-  { title: 'About Us', href: '#about' },
   { title: 'Services', href: '#services' },
-  { title: 'Team', href: '#team' },
   { title: 'Clients', href: '#clients' },
+  { title: 'Team', href: '#team' },
   { title: 'Career', href: '#career' },
   { title: 'Contact', href: '#contact' },
+  { title: 'About', href: '#about' },
 ];
+
+const looplabsVariants = {
+  initial: {
+    x: 0,
+    y: 0,
+    scale: 1,
+    rotate: 0,
+  },
+  animateToCenter: {
+    x: '50vw',
+    y: '50vh',
+    translateX: '-50%',
+    translateY: '-50%',
+    scale: 1.5,
+    rotate: 360 * 5, // 5 full spins
+    transition: {
+      duration: 2,
+      ease: 'easeInOut',
+    },
+  },
+  returnToNav: {
+    x: 0,
+    y: 0,
+    translateX: '0%',
+    translateY: '0%',
+    scale: 1,
+    rotate: 0,
+    transition: {
+      duration: 0.9,
+      ease: 'easeOut',
+    },
+  },
+};
+
+const goldPartnerVariants = {
+  initial: {
+    rotate: 0,
+    scale: 1,
+  },
+  rotateAnim: {
+    rotate: 360 * 5,
+    scale: 1.2,
+    transition: {
+      duration: 2,
+      ease: 'easeInOut',
+    },
+  },
+  returnToNormal: {
+    rotate: 0,
+    scale: 1,
+    transition: {
+      duration: 0.9,
+      ease: 'easeOut',
+    },
+  },
+};
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  // 3D rotation on hover
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const textRef = useRef<HTMLSpanElement>(null);
+
+  // Animation controls for LOOPLABS and Gold Partner
+  const looplabsControls = useAnimation();
+  const goldPartnerControls = useAnimation();
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = textRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    const rotateX = (-y / 20).toFixed(2);
+    const rotateY = (x / 20).toFixed(2);
+
+    setRotation({ x: parseFloat(rotateX), y: parseFloat(rotateY) });
+  };
+
+  const resetRotation = () => {
+    setRotation({ x: 0, y: 0 });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
-      if (offset > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(offset > 50);
     };
 
-    // Initialize theme
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' || 'light';
+    const savedTheme = (localStorage.getItem('theme') as 'light' | 'dark') || 'dark';
     setTheme(savedTheme);
     document.documentElement.setAttribute('data-theme', savedTheme);
 
     window.addEventListener('scroll', handleScroll);
+
+    // Run the sequential animation:
+    async function runAnimations() {
+      await looplabsControls.start('animateToCenter');
+      await looplabsControls.start('returnToNav');
+
+      await goldPartnerControls.start('rotateAnim');
+      await goldPartnerControls.start('returnToNormal');
+    }
+    runAnimations();
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [looplabsControls, goldPartnerControls]);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -46,9 +132,9 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header 
+    <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled 
+        scrolled
           ? 'bg-white/80 dark:bg-secondary-900/80 backdrop-blur-md shadow-md py-3'
           : 'bg-transparent py-5'
       }`}
@@ -57,18 +143,37 @@ const Navbar: React.FC = () => {
         <nav className="flex items-center justify-between">
           <div className="flex items-center">
             <a href="#home" className="flex items-center space-x-4">
-              <img 
-                src="/IMG-20250426-WA0016.jpg" 
-                alt="LoopLabs Logo" 
-                className="h-12 w-12"
-              />
-              <div className="flex flex-col">
-                <span className="text-2xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-accent-500 transform hover:scale-105 transition-transform duration-300">
+              <img src="/IMG-20250426-WA0016.jpg" alt="LoopLabs Logo" className="h-12 w-12" />
+              <div className="flex items-center space-x-2" style={{ perspective: '1000px' }}>
+                <motion.span
+                  ref={textRef}
+                  className="text-5xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-accent-500 cursor-pointer"
+                  variants={looplabsVariants}
+                  initial="initial"
+                  animate={looplabsControls}
+                  onMouseMove={handleMouseMove}
+                  onMouseLeave={resetRotation}
+                  style={{
+                    transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+                    transformStyle: 'preserve-3d',
+                    transition: 'transform 0.2s ease-out',
+                  }}
+                >
                   LOOPLABS
-                </span>
-                <span className="text-xs text-gold-500 font-medium">
-                  GOLD PARTNER WITH HUNGRYTOP
-                </span>
+                </motion.span>
+                <span className="text-5xl font-bold text-gold-500">∞</span>
+                <motion.a
+                  href="https://www.hungrytop.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col text-gold-500 font-medium text-sm leading-tight cursor-pointer hover:text-primary-500"
+                  variants={goldPartnerVariants}
+                  initial="initial"
+                  animate={goldPartnerControls}
+                >
+                  <span>GOLD PARTNER</span>
+                  <span>WITH HUNGRYTOP</span>
+                </motion.a>
               </div>
             </a>
           </div>
@@ -85,11 +190,7 @@ const Navbar: React.FC = () => {
               className="p-2 rounded-full hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors"
               aria-label="Toggle theme"
             >
-              {theme === 'light' ? (
-                <Moon className="h-5 w-5" />
-              ) : (
-                <Sun className="h-5 w-5" />
-              )}
+              {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
             </button>
             <a
               href="#contact"
@@ -106,11 +207,7 @@ const Navbar: React.FC = () => {
               className="p-2 rounded-full hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors"
               aria-label="Toggle theme"
             >
-              {theme === 'light' ? (
-                <Moon className="h-5 w-5" />
-              ) : (
-                <Sun className="h-5 w-5" />
-              )}
+              {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}

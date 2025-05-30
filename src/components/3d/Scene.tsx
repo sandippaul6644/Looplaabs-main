@@ -55,8 +55,8 @@ const Scene: React.FC<SceneProps> = ({ count = 3 }) => {
             (Math.random() - 0.5) * 5
           ]} 
           color={colors[i % colors.length]} 
-          speed={0.2 + Math.random() * 0.8}
-          distort={0.3 + Math.random() * 0.3}
+          speed={0.3 + Math.random() * 1.8}
+          distort={0.8 + Math.random() * 0.2}
         />
       ))}
       

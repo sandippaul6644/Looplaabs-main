@@ -89,7 +89,6 @@ const HeroSection: React.FC = () => {
           transition={{ delay: 1.2, duration: 0.5 }}
         >
           <div className="flex flex-col items-center">
-            <span className="text-secondary-600 dark:text-secondary-400 mb-2">Scroll to explore</span>
             <div className="w-6 h-10 border-2 border-secondary-400 dark:border-secondary-600 rounded-full flex justify-center">
               <motion.div 
                 className="w-1.5 h-1.5 bg-secondary-600 dark:bg-secondary-400 rounded-full mt-2"
