@@ -66,7 +66,7 @@ const AboutSection: React.FC = () => {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
-            About <span className="gradient-text">LoopLabs</span>
+            ABOUT <span className="gradient-text">LOOPLABS</span>
           </motion.h2>
           <motion.p 
             className="section-subtitle"
@@ -118,7 +118,7 @@ const AboutSection: React.FC = () => {
               variants={itemVariants}
               className="text-secondary-600 dark:text-secondary-400 mb-6"
             >
-              Founded in 2020, LoopLabs Technology Limited was born with a vision to bridge the gap between complex technology and business needs. Our team of passionate technologists and creative minds work together to deliver exceptional digital experiences.
+              Founded in 2024, LoopLabs Technology Limited was born with a vision to bridge the gap between complex technology and business needs. Our team of passionate technologists and creative minds work together to deliver exceptional digital experiences.
             </motion.p>
             <motion.p 
               variants={itemVariants}

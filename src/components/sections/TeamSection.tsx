@@ -5,9 +5,19 @@ import { Linkedin, Twitter, Github } from 'lucide-react';
 
 const teamMembers = [
   {
-    name: 'Alex Johnson',
-    role: 'CEO & Founder',
-    image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    name: 'SANDIP PAUL',
+    role: 'CTO & Founder',
+    image: './public/sandip.jpeg',
+    social: {
+      linkedin: '#',
+      twitter: '#',
+      github: '#'
+    }
+  },  
+  {
+    name: 'SUBHAJIT KARMAKAR',
+    role: 'Co-Founder',
+    image: '/public/subhajit.jpeg',
     social: {
       linkedin: '#',
       twitter: '#',
@@ -15,9 +25,9 @@ const teamMembers = [
     }
   },
   {
-    name: 'Sarah Williams',
-    role: 'CTO',
-    image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    name: 'PAPAI PRATIHAR',
+    role: 'Lead Developer AND CEO',
+    image: '/public/papai.jpeg',
     social: {
       linkedin: '#',
       twitter: '#',
@@ -25,25 +35,25 @@ const teamMembers = [
     }
   },
   {
-    name: 'Michael Chen',
-    role: 'Lead Developer',
-    image: 'https://images.pexels.com/photos/3785104/pexels-photo-3785104.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    name: 'SURAJIT KAR',
+    role: 'SENIOR ANDROID DEVELOPER',
+    image: '/public/surojit.jpeg',
     social: {
       linkedin: '#',
-      twitter: '#',
-      github: '#'
+      twitter: '#'
     }
   },
   {
-    name: 'Jessica Park',
-    role: 'Marketing Director',
-    image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    name: 'PRITAM',
+    role: 'HEAD OF THE DEPARTMENT',
+    image: '/public/pritam.jpeg',
     social: {
       linkedin: '#',
       twitter: '#'
     }
   }
 ];
+
 
 const TeamSection: React.FC = () => {
   const [ref, inView] = useInView({

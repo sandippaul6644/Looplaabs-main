@@ -3,7 +3,7 @@ import { Infinity as InfinityIcon, Github, Linkedin, Twitter, Mail, MapPin, Phon
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
-  
+
   return (
     <footer className="bg-secondary-100 dark:bg-secondary-900">
       <div className="container mx-auto px-4 pt-16 pb-8">
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
               </a>
             </div>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
               <li><a href="#career" className="text-secondary-600 hover:text-primary-600 dark:text-secondary-400 dark:hover:text-primary-400 transition-colors">Career</a></li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-semibold mb-4">Services</h3>
             <ul className="space-y-2">
@@ -50,26 +50,31 @@ const Footer: React.FC = () => {
               <li><a href="#services" className="text-secondary-600 hover:text-primary-600 dark:text-secondary-400 dark:hover:text-primary-400 transition-colors">UI/UX Design</a></li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
             <ul className="space-y-4">
               <li className="flex items-start space-x-3">
                 <MapPin size={20} className="text-primary-600 flex-shrink-0 mt-0.5" />
-                <span className="text-secondary-600 dark:text-secondary-400">123 Innovation Street, Tech Valley, CA 94043</span>
+                <span className="text-secondary-600 dark:text-secondary-400"> M147 PATULI KOLKATA 700094</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone size={20} className="text-primary-600 flex-shrink-0" />
-                <span className="text-secondary-600 dark:text-secondary-400">+1 (555) 123-4567</span>
+                <span className="text-secondary-600 dark:text-secondary-400">+91 7718175157</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail size={20} className="text-primary-600 flex-shrink-0" />
-                <span className="text-secondary-600 dark:text-secondary-400">info@looplabs.tech</span>
+                <a
+                  href="mailto:looplabstechnology@gmail.com"
+                  className="text-secondary-600 dark:text-secondary-400 hover:underline"
+                >
+                  looplabstechnology@gmail.com
+                </a>
               </li>
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-secondary-200 dark:border-secondary-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-secondary-600 dark:text-secondary-400 text-sm">

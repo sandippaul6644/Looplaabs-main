@@ -23,7 +23,7 @@ const HeroSection: React.FC = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              Innovative Technology Solutions
+               WE PROVIDE INOVATIVE SOLUTIONS
             </motion.span>
             
             <motion.h1 
