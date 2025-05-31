@@ -133,41 +133,40 @@ const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/80 dark:bg-secondary-900/80 backdrop-blur-md shadow-md py-3'
-          : 'bg-transparent py-5'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled
+        ? 'bg-white/80 dark:bg-secondary-900/80 backdrop-blur-md shadow-md py-3'
+        : 'bg-transparent py-5'
+        }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <nav className="flex items-center justify-between">
           <div className="flex items-center">
             <a href="#home" className="flex items-center space-x-4">
-              <img src="/logo.jpeg" alt="LoopLabs Logo" className="h-12 w-12" />
+              <img src="./logo.jpeg" alt="LoopLabs Logo" className="h-12 w-12" />
               <div className="flex items-center space-x-2" style={{ perspective: '1000px' }}>
-               <motion.span
-  ref={textRef}
-  className="text-5xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-accent-500 cursor-pointer"
-  variants={looplabsVariants}
-  initial="initial"
-  animate={looplabsControls}
-  onMouseEnter={async () => {
-    await looplabsControls.start('animateToCenter');
-    await looplabsControls.start('returnToNav');
+                <motion.span
+                  ref={textRef}
+                  className="text-5xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-accent-500 cursor-pointer"
+                  variants={looplabsVariants}
+                  initial="initial"
+                  animate={looplabsControls}
+                  onMouseEnter={async () => {
+                    await looplabsControls.start('animateToCenter');
+                    await looplabsControls.start('returnToNav');
 
-    await goldPartnerControls.start('rotateAnim');
-    await goldPartnerControls.start('returnToNormal');
-  }}
-  onMouseMove={handleMouseMove}
-  onMouseLeave={resetRotation}
-  style={{
-    transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
-    transformStyle: 'preserve-3d',
-    transition: 'transform 0.2s ease-out',
-  }}
->
-  LOOPLABS
-</motion.span>
+                    await goldPartnerControls.start('rotateAnim');
+                    await goldPartnerControls.start('returnToNormal');
+                  }}
+                  onMouseMove={handleMouseMove}
+                  onMouseLeave={resetRotation}
+                  style={{
+                    transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+                    transformStyle: 'preserve-3d',
+                    transition: 'transform 0.2s ease-out',
+                  }}
+                >
+                  LOOPLABS
+                </motion.span>
                 <span className="text-5xl font-bold text-gold-500">∞</span>
                 <motion.a
                   href="https://www.hungrytop.com/"

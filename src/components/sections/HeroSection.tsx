@@ -72,7 +72,7 @@ const HeroSection: React.FC = () => {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="relative w-full h-full">
   <video
-    src="/homevideo.mp4"
+    src="./homevideo.mp4"
     autoPlay
     loop
     muted

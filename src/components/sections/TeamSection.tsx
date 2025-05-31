@@ -17,7 +17,7 @@ const teamMembers = [
   {
     name: 'SUBHAJIT KARMAKAR',
     role: 'Co-Founder',
-    image: '/subhajit.jpeg',
+    image: './subhajit.jpeg',
     social: {
       linkedin: '#',
       twitter: '#',
@@ -27,7 +27,7 @@ const teamMembers = [
   {
     name: 'PAPAI PRATIHAR',
     role: 'Lead Developer AND CEO',
-    image: '/papai.jpeg',
+    image: './papai.jpeg',
     social: {
       linkedin: '#',
       twitter: '#',
@@ -37,7 +37,7 @@ const teamMembers = [
   {
     name: 'SURAJIT KAR',
     role: 'SENIOR ANDROID DEVELOPER',
-    image: '/surojit.jpeg',
+    image: './surojit.jpeg',
     social: {
       linkedin: '#',
       twitter: '#'
@@ -46,7 +46,7 @@ const teamMembers = [
   {
     name: 'PRITAM',
     role: 'HEAD OF THE DEPARTMENT',
-    image: '/pritam.jpeg',
+    image: './pritam.jpeg',
     social: {
       linkedin: '#',
       twitter: '#'
