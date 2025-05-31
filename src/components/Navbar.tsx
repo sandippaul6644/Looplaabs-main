@@ -143,7 +143,7 @@ const Navbar: React.FC = () => {
         <nav className="flex items-center justify-between">
           <div className="flex items-center">
             <a href="#home" className="flex items-center space-x-4">
-              <img src="/IMG-20250426-WA0016.jpg" alt="LoopLabs Logo" className="h-12 w-12" />
+              <img src="/logo.jpeg" alt="LoopLabs Logo" className="h-12 w-12" />
               <div className="flex items-center space-x-2" style={{ perspective: '1000px' }}>
                <motion.span
   ref={textRef}
