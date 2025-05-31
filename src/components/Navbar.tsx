@@ -13,23 +13,15 @@ const navLinks = [
 ];
 
 const looplabsVariants = {
-  initial: {
-    x: 0,
-    y: 0,
-    scale: 1,
-    rotate: 0,
-  },
+  initial: { x: 0, y: 0, scale: 1, rotate: 0 },
   animateToCenter: {
     x: '50vw',
     y: '50vh',
     translateX: '-50%',
     translateY: '-50%',
     scale: 1.5,
-    rotate: 360 * 5, // 5 full spins
-    transition: {
-      duration: 2,
-      ease: 'easeInOut',
-    },
+    rotate: 360 * 5,
+    transition: { duration: 2, ease: 'easeInOut' },
   },
   returnToNav: {
     x: 0,
@@ -38,33 +30,21 @@ const looplabsVariants = {
     translateY: '0%',
     scale: 1,
     rotate: 0,
-    transition: {
-      duration: 0.9,
-      ease: 'easeOut',
-    },
+    transition: { duration: 0.9, ease: 'easeOut' },
   },
 };
 
 const goldPartnerVariants = {
-  initial: {
-    rotate: 0,
-    scale: 1,
-  },
+  initial: { rotate: 0, scale: 1 },
   rotateAnim: {
     rotate: 360 * 5,
     scale: 1.2,
-    transition: {
-      duration: 2,
-      ease: 'easeInOut',
-    },
+    transition: { duration: 2, ease: 'easeInOut' },
   },
   returnToNormal: {
     rotate: 0,
     scale: 1,
-    transition: {
-      duration: 0.9,
-      ease: 'easeOut',
-    },
+    transition: { duration: 0.9, ease: 'easeOut' },
   },
 };
 
@@ -72,12 +52,11 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-
-  // 3D rotation on hover
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
-  const textRef = useRef<HTMLSpanElement>(null);
 
-  // Animation controls for LOOPLABS and Gold Partner
+  const textRef = useRef<HTMLSpanElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
   const looplabsControls = useAnimation();
   const goldPartnerControls = useAnimation();
 
@@ -87,42 +66,10 @@ const Navbar: React.FC = () => {
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
 
-    const rotateX = (-y / 20).toFixed(2);
-    const rotateY = (x / 20).toFixed(2);
-
-    setRotation({ x: parseFloat(rotateX), y: parseFloat(rotateY) });
+    setRotation({ x: parseFloat((-y / 20).toFixed(2)), y: parseFloat((x / 20).toFixed(2)) });
   };
 
-  const resetRotation = () => {
-    setRotation({ x: 0, y: 0 });
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      setScrolled(offset > 50);
-    };
-
-    const savedTheme = (localStorage.getItem('theme') as 'light' | 'dark') || 'dark';
-    setTheme(savedTheme);
-    document.documentElement.setAttribute('data-theme', savedTheme);
-
-    window.addEventListener('scroll', handleScroll);
-
-    // Run the sequential animation:
-    async function runAnimations() {
-      await looplabsControls.start('animateToCenter');
-      await looplabsControls.start('returnToNav');
-
-      await goldPartnerControls.start('rotateAnim');
-      await goldPartnerControls.start('returnToNormal');
-    }
-    runAnimations();
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [looplabsControls, goldPartnerControls]);
+  const resetRotation = () => setRotation({ x: 0, y: 0 });
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -130,6 +77,42 @@ const Navbar: React.FC = () => {
     localStorage.setItem('theme', newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
   };
+
+  // Lock scroll on mobile menu open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+  }, [isOpen]);
+
+  // Scroll detection
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+
+    const savedTheme = (localStorage.getItem('theme') as 'light' | 'dark') || 'dark';
+    setTheme(savedTheme);
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    async function runAnimations() {
+      await looplabsControls.start('animateToCenter');
+      await looplabsControls.start('returnToNav');
+      await goldPartnerControls.start('rotateAnim');
+      await goldPartnerControls.start('returnToNormal');
+    }
+
+    runAnimations();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [looplabsControls, goldPartnerControls]);
+
+  // Close mobile menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (isOpen && menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
 
   return (
     <header
@@ -153,7 +136,6 @@ const Navbar: React.FC = () => {
                   onMouseEnter={async () => {
                     await looplabsControls.start('animateToCenter');
                     await looplabsControls.start('returnToNav');
-
                     await goldPartnerControls.start('rotateAnim');
                     await goldPartnerControls.start('returnToNormal');
                   }}
@@ -228,6 +210,7 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Navigation */}
       <motion.div
+        ref={menuRef}
         initial={{ opacity: 0, height: 0 }}
         animate={{ opacity: isOpen ? 1 : 0, height: isOpen ? 'auto' : 0 }}
         transition={{ duration: 0.3 }}
